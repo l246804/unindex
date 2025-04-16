@@ -2,6 +2,8 @@
 
 为指定目录生成索引文件。
 
+[English Document](https://github.com/l246804/unindex/blob/dev/README.md)
+
 ## 环境要求
 
 - Node.js >= 20.0.0
@@ -38,6 +40,9 @@ import { defineConfig } from 'unindex'
 
 export default defineConfig({
   dirs: 'src/hooks', // 指定需要生成索引文件的目录列表
+  glob: {
+    patterns: '**/*.ts', // 指定匹配文件的模式
+  },
 })
 ```
 
@@ -73,8 +78,8 @@ export default defineConfig([
       // ignore: '**/_*',
 
       // 仅忽略以 `_` 开头的文件
-      ignore: '**/_.*'
-    }
+      ignore: '**/_.*',
+    },
   },
   {
     entryDir: 'src/styles',
@@ -97,10 +102,10 @@ export default defineConfig([
       return `\
 # 目录
 
-${codes.map(code => `- ${code}`).join('\n')}
+${codes.map((code) => `- ${code}`).join('\n')}
 `
     },
-  }
+  },
 ])
 ```
 
@@ -126,3 +131,7 @@ export default defineConfig({
 ## 调试
 
 执行命令前设置 `DEBUG=unindex` 开启调试器，具体请参考 [debug](https://www.npmjs.com/package/debug)。
+
+## 配置项
+
+请参考 [src/core/config.ts](https://github.com/l246804/unindex/blob/dev/src/core/config.ts)

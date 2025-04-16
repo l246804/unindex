@@ -2,6 +2,8 @@
 
 Generate index files for specified directories.
 
+[中文文档](https://github.com/l246804/unindex/blob/dev/README.zh_CN.md)
+
 ## Environment Requirements
 
 - Node.js >= 20.0.0
@@ -38,6 +40,9 @@ import { defineConfig } from 'unindex'
 
 export default defineConfig({
   dirs: 'src/hooks', // Specify the list of directories to generate index files for
+  glob: {
+    patterns: '**/*.ts', // Specify the patterns to match files
+  },
 })
 ```
 
@@ -73,8 +78,8 @@ export default defineConfig([
       // ignore: '**/_*',
 
       // Only ignore files starting with '_'
-      ignore: '**/_.*'
-    }
+      ignore: '**/_.*',
+    },
   },
   {
     entryDir: 'src/styles',
@@ -97,10 +102,10 @@ export default defineConfig([
       return `\
 # Directory
 
-${codes.map(code => `- ${code}`).join('\n')}
+${codes.map((code) => `- ${code}`).join('\n')}
 `
     },
-  }
+  },
 ])
 ```
 
@@ -126,3 +131,7 @@ export default defineConfig({
 ## Debugging
 
 Set `DEBUG=unindex` before running the command to enable the debugger. For more details, refer to [debug](https://www.npmjs.com/package/debug).
+
+## Configuration
+
+Please refer to [src/core/config.ts](https://github.com/l246804/unindex/blob/dev/src/core/config.ts)
