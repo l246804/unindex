@@ -1,0 +1,78 @@
+{
+  "name": "unindex",
+  "type": "module",
+  "version": "0.0.0",
+  "description": "Automatically generate `index.*` files.",
+  "author": "RayHao <https://github.com/l246804>",
+  "license": "MIT",
+  "homepage": "https://github.com/l246804/unindex",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/l246804/unindex"
+  },
+  "bugs": {
+    "url": "https://github.com/l246804/unindex/issues"
+  },
+  "keywords": [
+    "create",
+    "generate",
+    "index",
+    "dir",
+    "export",
+    "import"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./*": "./*"
+  },
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "unindex": "./dist/cli.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "files": [
+    "CHANGELOG.md",
+    "README.md",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "release": "release-it",
+    "test": "DEBUG=unindex node ./dist/cli.js -c unindex.config.test"
+  },
+  "dependencies": {
+    "c12": "^3.0.3",
+    "chokidar": "^4.0.3",
+    "citty": "^0.1.6",
+    "debug": "^4.4.0",
+    "pathe": "^2.0.3",
+    "tinyglobby": "^0.2.12"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^4.12.0",
+    "@release-it/conventional-changelog": "^10.0.0",
+    "@types/debug": "^4.1.12",
+    "simple-git-hooks": "^2.12.1",
+    "lint-staged": "^15.5.1",
+    "eslint": "^9.24.0",
+    "eslint-plugin-format": "^1.0.1",
+    "nice-fns": "^2.1.0",
+    "prettier": "^3.5.3",
+    "release-it": "^18.1.2",
+    "tsdown": "0.7.5",
+    "typescript": "^5.8.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  }
+}
