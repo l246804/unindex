@@ -4,7 +4,7 @@ import fs from 'node:fs/promises'
 import { extname, matchesGlob, relative } from 'pathe'
 import { glob } from 'tinyglobby'
 import { resolveConfig } from './config'
-import { debug, getAbsolutePath, parsePath } from './utils'
+import { debug, getAbsolutePath, parsePath, tempDebug } from './utils'
 
 export interface GenerateIndexState {
   files: Set<string>
@@ -41,7 +41,6 @@ export function createContext(userConfig: Config): Context {
       ...config.glob,
       cwd: entryDir,
       absolute: true,
-      debug: false,
     }).then((files) => {
       debug('Found files: %O', files)
 
@@ -100,7 +99,7 @@ export function createContext(userConfig: Config): Context {
     debug('Writing to %o', outFileParsed.path)
     await fs.mkdir(outFileParsed.dir, { recursive: true })
     await fs.writeFile(outFileParsed.path, content, { encoding: 'utf-8' })
-    debug('Successfully written to %o', outFileParsed.path)
+    tempDebug('Successfully written to %o', outFileParsed.path)
   }
 
   const generateIndex: Context['generateIndex'] = async () => {
@@ -111,12 +110,17 @@ export function createContext(userConfig: Config): Context {
     }
 
     state.files = new Set(await getFiles())
-    tryUpdateOutFileExtension([...state.files])
+    if (state.files.size === 0) {
+      tempDebug('No files found, skip generating outFile')
+    }
+    else {
+      tryUpdateOutFileExtension([...state.files])
 
-    state.codes = new Set(await getCodes(state.files))
-    state.content = await getContent(state)
+      state.codes = new Set(await getCodes(state.files))
+      state.content = await getContent(state)
 
-    await writeFile(state.content)
+      await writeFile(state.content)
+    }
 
     return state
   }

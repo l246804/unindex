@@ -48,7 +48,8 @@
   "scripts": {
     "build": "tsdown",
     "release": "release-it",
-    "test": "DEBUG=unindex node ./dist/cli.js -c unindex.config.test"
+    "pretest": "pnpm run build",
+    "test": "node ./dist/cli.js -c unindex.config.test"
   },
   "dependencies": {
     "c12": "^3.0.3",

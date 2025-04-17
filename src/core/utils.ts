@@ -3,6 +3,13 @@ import { isAbsolute, join, normalize, parse, resolve } from 'pathe'
 
 export const debug: Debug.Debugger = Debug('unindex')
 
+export function tempDebug(...args: Parameters<typeof debug>): void {
+  const enabled = debug.enabled
+  debug.enabled = true
+  debug(...args)
+  debug.enabled = enabled
+}
+
 export function getAbsolutePath(path: string, cwd: string): string {
   return isAbsolute(path) ? normalize(path) : resolve(cwd, path)
 }

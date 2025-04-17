@@ -1,7 +1,6 @@
 import type { GlobOptions } from 'tinyglobby'
 import process from 'node:process'
-
-type SetRequired<T, K extends keyof T> = Required<Pick<T, K>> & Omit<T, K>
+import { assign } from 'nice-fns'
 
 export interface CodeGeneratorContext {
   /**
@@ -46,8 +45,14 @@ export interface Config {
   outFile?: string
   /**
    * Glob options, refer to {@link https://www.npmjs.com/package/tinyglobby tinyglobby}
+   * @default
+   * ```ts
+   * {
+   *   patterns: '**\/*.(js|ts|mjs|cjs|mts|cts)'
+   * }
+   * ```
    */
-  glob: SetRequired<Omit<GlobOptions, 'cwd' | 'absolute' | 'debug'>, 'patterns'>
+  glob?: Omit<GlobOptions, 'cwd' | 'absolute'>
   /**
    * Root directory. Defaults to the current working directory if not provided.
    * @default process.cwd()
@@ -98,7 +103,7 @@ export function resolveConfig(config: Config): ConfigResolved {
     dir: config.dir,
     outFile: config.outFile || 'index.*',
     cwd: config.cwd || process.cwd(),
-    glob: config.glob,
+    glob: assign({ patterns: '**/*.(js|ts|mjs|cjs|mts|cts)' }, config.glob),
     watch: config.watch || false,
     codeGenerator: config.codeGenerator || defaultCodeGenerator,
     contentGenerator: config.contentGenerator || defaultContentGenerator,

@@ -1,26 +1,27 @@
 import type { FSWatcher } from 'chokidar'
 import type { Config } from './core/config'
 import type { Context } from './core/context'
+import process from 'node:process'
 import chokidar from 'chokidar'
+import { assign, debounce } from 'nice-fns'
 import { createContext } from './core/context'
 import { debug, getAbsolutePath } from './core/utils'
-import { assign, debounce } from 'nice-fns'
 
 export type {
   CodeGeneratorContext,
   Config,
   ConfigResolved,
-  ContentGeneratorContext
+  ContentGeneratorContext,
 } from './core/config'
 
 export { defineConfig } from './define'
 
 export async function start(
   config: Config | Config[],
-  baseConfig: Pick<Config, 'watch'> = {}
+  baseConfig: Pick<Config, 'watch'> = {},
 ): Promise<{ stop: () => void }> {
   const configs = Array.isArray(config) ? config : [config]
-  const ctxs = configs.map((config) => createContext(assign({}, baseConfig, config)))
+  const ctxs = configs.map(config => createContext(assign({}, baseConfig, config)))
   const watchers = new Map<Context, FSWatcher>()
 
   for (const ctx of ctxs) {
@@ -32,7 +33,9 @@ export async function start(
     const watcher = chokidar.watch(ctx.entryDir)
     watchers.set(ctx, watcher)
 
-    const generateIndex = debounce(ctx.generateIndex, 1e3)
+    const generateIndex = debounce(() => {
+      ctx.generateIndex().catch(console.error)
+    }, 1e3)
     const createWatchCb = (eventName: string) => {
       return async (path: string) => {
         debug('watcher: %s %o', eventName, getAbsolutePath(path, ctx.entryDir))
@@ -42,8 +45,8 @@ export async function start(
     watcher.on('add', createWatchCb('add')).on('unlink', createWatchCb('unlink'))
   }
 
-  const stop = () => {
-    watchers.forEach((watcher) => watcher.close())
+  const stop = (): void => {
+    watchers.forEach(watcher => watcher.close())
     watchers.clear()
     ctxs.length = 0
   }

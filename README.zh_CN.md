@@ -39,9 +39,9 @@ pnpm add -D unindex
 import { defineConfig } from 'unindex'
 
 export default defineConfig({
-  dirs: 'src/hooks', // 指定需要生成索引文件的目录列表
+  dir: 'src/hooks', // 指定需要生成索引文件的目录列表
   glob: {
-    patterns: '**/*.ts', // 指定匹配文件的模式
+    patterns: '**/*.ts', // 指定匹配文件的模式，默认为 `**/*.(js|ts|mjs|cjs|mts|cts)`
   },
 })
 ```

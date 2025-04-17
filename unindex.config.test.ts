@@ -2,9 +2,8 @@ import { defineConfig } from './src/define'
 
 export default defineConfig({
   dir: 'test',
+  outFile: 'index.ts',
   glob: {
-    patterns: '**/*',
-
     // ignore files and folders starting with `_`
     ignore: '**/_*',
 
