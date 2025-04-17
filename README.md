@@ -39,7 +39,7 @@ Create a configuration file `unindex.config.[js|ts|mjs|cjs|mts|cts|json]`.
 import { defineConfig } from 'unindex'
 
 export default defineConfig({
-  dir: 'src/hooks', // Specify the list of directories to generate index files for
+  entryDir: 'src/hooks', // Specify the list of directories to generate index files for
   glob: {
     patterns: '**/*.ts', // Specify the patterns to match files, default is '**/*.(js|ts|mjs|cjs|mts|cts)'
   },

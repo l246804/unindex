@@ -29,7 +29,7 @@ export interface Context {
 
 export function createContext(userConfig: Config): Context {
   const config = resolveConfig(userConfig)
-  const entryDir = getAbsolutePath(config.dir, config.cwd)
+  const entryDir = getAbsolutePath(config.entryDir, config.cwd)
   const outFileParsed = parsePath(getAbsolutePath(config.outFile, entryDir))
 
   debug('Resolved config: %O', config)

@@ -36,7 +36,7 @@ export interface Config {
   /**
    * Entry directory
    */
-  dir: string
+  entryDir: string
   /**
    * Output file path. Defaults to 'index.*' in the entry directory if not provided.
    * If the extension ends with `.*`, it will attempt to infer the extension from the matched file list.
@@ -100,7 +100,7 @@ function defaultContentGenerator(ctx: ContentGeneratorContext): string {
  */
 export function resolveConfig(config: Config): ConfigResolved {
   return {
-    dir: config.dir,
+    entryDir: config.entryDir,
     outFile: config.outFile || 'index.*',
     cwd: config.cwd || process.cwd(),
     glob: assign({ patterns: '**/*.(js|ts|mjs|cjs|mts|cts)' }, config.glob),
