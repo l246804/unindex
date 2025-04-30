@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.2.1](https://github.com/l246804/unindex/compare/v0.2.0...v0.2.1) (2025-04-30)
+
+### Bug Fixes
+
+- **cli:** 修复 defineConfig 返回配置项数组时无法被正确解析 ([ced9391](https://github.com/l246804/unindex/commit/ced9391398d9fc71213bac889c40c3c26f22abee))
+
+### Chores
+
+- 添加 MIT 许可证并更新 package.json 文件 ([d9ec9df](https://github.com/l246804/unindex/commit/d9ec9df50f09afc976be50919fa281cd60eef5ba))
+
 ## [0.2.0](https://github.com/l246804/unindex/compare/v0.1.0...v0.2.0) (2025-04-17)
 
 ### Features
