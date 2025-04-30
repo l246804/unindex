@@ -12,7 +12,7 @@ export interface CodeGeneratorContext {
    */
   file: string
   /**
-   * Relative path of the imported file to the output file (including extension), starting with `./`
+   * Relative path of the imported file to the output file (including extension)
    */
   relativePath: string
 }
