@@ -78,7 +78,7 @@ export default defineConfig([
       // ignore: '**/_*',
 
       // Only ignore files starting with '_'
-      ignore: '**/_.*',
+      ignore: '**/_*.*',
     },
   },
   {

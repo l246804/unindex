@@ -10,25 +10,24 @@ const main = defineCommand({
   meta: {
     name,
     version,
-    description
+    description,
   },
   args: {
     config: {
       alias: 'c',
       type: 'string',
-      description: 'Specify the config file'
+      description: 'Specify the config file',
     },
     watch: {
       alias: 'w',
       type: 'boolean',
-      description:
-        'Watch files and regenerate on add or delete, priority lower than config file'
+      description: 'Watch files and regenerate on add or delete, priority lower than config file',
     },
     help: {
       type: 'boolean',
       alias: 'h',
-      description: 'Show help'
-    }
+      description: 'Show help',
+    },
   },
   async run({ args }) {
     debug('CLI args: %O', args)
@@ -36,7 +35,10 @@ const main = defineCommand({
     await loadConfig<Config | Config[]>({
       name,
       configFile: args.config || undefined,
-      rcFile: false
+      rcFile: false,
+      merger(...sources) {
+        return ([] as Config[]).concat(...sources.filter(source => source != null))
+      },
     })
       .then(({ config, layers = [] }) => {
         debug('config layers: %O', layers)
@@ -50,7 +52,7 @@ const main = defineCommand({
         console.error(e)
         process.exit(1)
       })
-  }
+  },
 })
 
 runMain(main)

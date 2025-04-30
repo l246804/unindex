@@ -78,7 +78,7 @@ export default defineConfig([
       // ignore: '**/_*',
 
       // 仅忽略以 `_` 开头的文件
-      ignore: '**/_.*',
+      ignore: '**/_*.*',
     },
   },
   {
