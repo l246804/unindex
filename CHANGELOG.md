@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.2](https://github.com/l246804/unindex/compare/v0.2.1...v0.2.2) (2025-04-30)
+
+### Bug Fixes
+
+- **config:** 修改 CodeGeneratorContext 接口中对 relativePath 字段的错误描述 ([916a5ce](https://github.com/l246804/unindex/commit/916a5ce136a9e3ec5c4e9da0c3596f82718ac124))
+
 ## [0.2.1](https://github.com/l246804/unindex/compare/v0.2.0...v0.2.1) (2025-04-30)
 
 ### Bug Fixes
